@@ -2,7 +2,7 @@
 
 ## What is this?
 
-A quick demo showing ChatGPT auto-tagging of posts.
+A quick demo showing ChatGPT auto-tagging of posts on discourse.
 
 This simple demo:
 

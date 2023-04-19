@@ -30,7 +30,7 @@ class Shoggoth:
                     area of functionality.  Each term is a tag, what is in the
                     parentheses describes what that tag covers.
 
-                    - Grafana (dashboarding)
+                    - Dashboarding (dashboards, panels, variables)
                     - Loki (logging)
                     - Mimir (prometheus and metrics)
                     - OnCall (incident response monitoring, or IRM)
@@ -40,25 +40,28 @@ class Shoggoth:
 
                     Additional common topics include:
 
-                    - dashboards (which include common panels and visualization types)
-                    - plugins
-                    - datasource (connections to remote data sources)
-                    - transformations
+                    - Dashboards (which include common panels and visualization types)
+                    - Plugins
+                    - Datasource (connections to remote data sources)
+                    - Database (mysql, postgres, influx, sqlite)
+                    - Transformations
                     - Auth (Authentication and authorization issues)
-                    - Any of the 3 cloud providers (Azure, GCP, and AWS)
+                    - Azure, GCP, or AWS (Any of the 3 cloud providers)
                     - Infrastructure (infra observability)
                     - App (application observability)
                     - Kubernetes (container orchestration, k8s)
                     - Docker (containers)
+                    - VM (virtual machines)
 
                     Tag the input according to the list above, if the question or issue
                     is primarily about that topic.  Do not tag it to a topic if
                     the topic in question is just mentioned in passing, such as 
-                    in an example.  The "Grafana" tag is very broad, so do not use it unless
-                    the post is about core dashboarding and Grafana functionality.
+                    in an example.  You may not tag any post as Grafana, because
+                    all posts may mention the word Grafana.
 
                     Content may include HTML, you are expected to understand it.  Never
-                    emit a tag containing any HTML tag or entity reference.
+                    emit a tag containing any HTML tag or entity reference.  Tags may not
+                    contain space, substitute a dash instead.
 
                     You may assign up to 5 tags.  Emit your response as a python list.
                 """
@@ -87,10 +90,13 @@ class Shoggoth:
         openai.api_key = os.environ['OPENAI_API_KEY']
 
     def run(self, command, input, model=DEFAULT_MODEL):
+        # Coerce user input to string; OpenAI can't take
+        # nested json inputs, but Shoggy can understand
+        # json as text 
         response = openai.ChatCompletion.create(
             model=model,
             messages=command['system_messages'] + [
-                { "role": "user", "content": input }
+                { "role": "user", "content": str(input) }
             ])
         
         return ShoggothReponse(response)

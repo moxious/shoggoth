@@ -48,6 +48,8 @@ class Shoggoth:
                     - Any of the 3 cloud providers (Azure, GCP, and AWS)
                     - Infrastructure (infra observability)
                     - App (application observability)
+                    - Kubernetes (container orchestration, k8s)
+                    - Docker (containers)
 
                     Tag the input according to the list above, if the question or issue
                     is primarily about that topic.  Do not tag it to a topic if
@@ -55,7 +57,10 @@ class Shoggoth:
                     in an example.  The "Grafana" tag is very broad, so do not use it unless
                     the post is about core dashboarding and Grafana functionality.
 
-                    You may assign up to 3 tags.  Emit your response as a python list.
+                    Content may include HTML, you are expected to understand it.  Never
+                    emit a tag containing any HTML tag or entity reference.
+
+                    You may assign up to 5 tags.  Emit your response as a python list.
                 """
             }
         ]

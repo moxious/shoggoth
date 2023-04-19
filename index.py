@@ -5,6 +5,7 @@ import json
 from dotenv import load_dotenv
 from shoggoth import Shoggoth, ShoggothReponse
 from fluent_discourse import Discourse
+from discourse import top_level_posts, link_for_post, content_only
 
 # Take what's in .env -> os.environ
 load_dotenv()
@@ -12,8 +13,8 @@ load_dotenv()
 client = Discourse.from_env(raise_for_rate_limit=False)
 response = client.posts.json.get()
 
-# Filter posts, only top level, no replies.
-posts = [ x for x in response['latest_posts'] if not 'reply_to_user' in x ]
+# No replies, they tend to be partial and missing context.
+posts = top_level_posts(response['latest_posts'])
 
 # Save latest batch for inspection
 with open(".latest_posts.json", "w") as f:
@@ -22,16 +23,14 @@ with open(".latest_posts.json", "w") as f:
 # Select a random post
 post = posts[random.randint(0, len(posts))]
 
-link = os.environ['DISCOURSE_URL'] + 't/%s/%s' % (post['topic_slug'], post['topic_id'])
-print(link)
+print(link_for_post(post))
 
 # Don't need all of the meta information about the post, just title/content.
 # The robot doesn't need the user's ID and avatar to tag a post
 filtered = { key: post[key] for key in post.keys() & {'topic_html_title', 'cooked'} }
 
-print(str(filtered))
+print(str(content_only(post)))
 
-# OpenAI wants text prompts, so careful to coerce JSON -> str.
 shoggy = Shoggoth()
-print(shoggy.run(Shoggoth.TAG_JSON, str(filtered)))
+print(shoggy.run(Shoggoth.TAG_JSON, content_only(post)))
 

@@ -41,6 +41,30 @@ https://community.grafana.com/t/merging-results-of-multiple-queries-into-table-u
 ['Grafana', 'dashboards', 'transformations']
 ```
 
+## Wait What?  How does this work?
+
+* With the OpenAI API, the "prompt" you give it is JSON of the post, much like ChatGPT.
+* But the API lets you give "system level prompts" before the "user level prompts"
+* These system level prompts are what I'm calling 'the prime directive'.
+* Check the static variables in `shoggoth.py` for "how to tell the robot what to do".
+
+What the OpenAI API sees, is something like this:
+
+```
+{ 
+    "messages": [
+        { "role": "system", "message": "Give me joke answers only, always with ;)" },
+        { "role": "user", "message": "What's 2+2?" }
+    ]
+}
+```
+
+The API would probably respond to this with something like, 
+
+> "It's pi, lol ;)"
+
+We use these system directives to give it a mini-tutorial about our domain, so that it "knows how to read the post".
+
 ## Next Steps (Hypothetically)
 
 1. The **prime directive** is not good, it's basic and naive, and could really use some work.

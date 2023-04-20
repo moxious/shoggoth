@@ -20,10 +20,12 @@ if args.topic:
     sys.exit(0)
 else:
     topics = cs.latest_topics_no_replies()
-    topic = topics[0]
-    print(topic.get_head_content())
-    print(topic.get_link())
+    
+    print("Got %d topics" % len(topics))
 
-shoggy = Shoggoth()
-print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
+    shoggy = Shoggoth()
+    
+    for topic in [ topics[0] ]:
+        print ("```\n%s\n```\n\n" % json.dumps(topic.get_head_content(), indent=2))
+        print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
 

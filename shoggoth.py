@@ -88,13 +88,19 @@ class Shoggoth:
                     contain space, substitute a dash instead.
 
                     You may assign up to 5 tags.  
-                    Your response should be a JSON object containing a list of tags, a summary
-                    field with a one sentence summary of the post, and concern field that should
-                    be set to "yes" if the post is very negative, insults another person, is 
-                    reporting a security issue, or is otherwise inappropriate, and "no" 
-                    otherwise.  Finally, you 
-                    may include a "notes" field for any comments you have about how the post
-                    might be solved or addressed.
+
+                    You will respond using markdown, like this:
+
+                    ## Recommendations: (title of the post)
+
+                    - URL: (the URL of the post)
+                    - Tags: (your choices)
+                    - Summary: (a one sentence summary of the post)
+                    - Friendly: (yes if the post seems friendly, no if it seems hostile, and neutral otherwise)
+                    - Concern: (yes, if the post is very negative, insults another person, is
+                    reporting a security issue, or is otherwise inappropriate, and no otherwise)
+                    - Notes: (anything else you would like to say about how a friendly community member
+                    might respond to or address the post)
                 """
             }
         ]

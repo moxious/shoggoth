@@ -17,6 +17,7 @@ class Topic:
     def get_head_content(self):
         top_post = self.get_posts()[0]
         return {
+            "url": self.get_link(),
             "id": self.data['id'],
             "slug": self.data['slug'],
             "title": self.data['title'],
@@ -53,6 +54,6 @@ class CommunitySupport():
         topics = topics_with_single_post(response['topic_list']['topics'])
         return [
             Topic(self.client.topic(topic_id=topic['id'], slug=topic['slug']))
-            for topic in [ topics[0] ]
+            for topic in topics
             if topic['posts_count'] == 1
         ]

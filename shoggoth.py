@@ -53,8 +53,7 @@ class Shoggoth:
                     - Docker (containers)
                     - VM (virtual machines)
 
-                    Tag the input according to the list above, if the question or issue
-                    is primarily about that topic.  Do not tag it to a topic if
+                    Tag using the lists above.  Do not tag it to a topic if
                     the topic in question is just mentioned in passing, such as 
                     in an example.  You may not tag any post as Grafana, because
                     all posts may mention the word Grafana.
@@ -63,7 +62,14 @@ class Shoggoth:
                     emit a tag containing any HTML tag or entity reference.  Tags may not
                     contain space, substitute a dash instead.
 
-                    You may assign up to 5 tags.  Emit your response as a python list.
+                    You may assign up to 5 tags.  
+                    Your response should be a JSON object containing a list of tags, a summary
+                    field with a one sentence summary of the post, and concern field that should
+                    be set to "yes" if the post is very negative, insults another person, is 
+                    reporting a security issue, or is otherwise inappropriate, and "no" 
+                    otherwise.  Finally, you 
+                    may include a "notes" field for any comments you have about how the post
+                    might be solved or addressed.
                 """
             }
         ]

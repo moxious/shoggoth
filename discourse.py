@@ -35,6 +35,19 @@ class CommunitySupport():
             api_username=os.environ['DISCOURSE_USERNAME'],
             api_key=os.environ['DISCOURSE_API_KEY'])
         
+    """Naive method to extract a slug and ID from a web link"""
+    def parse_link(self, link):
+        from urllib.parse import urlparse
+        url = urlparse(link)
+        # https://community.grafana.com/t/i-would-like-to-use-the-status-history-feature-but-the-results-are-overlapping/86154
+        path = url.path
+        
+        if not path.startswith('/t/'):
+            raise Exception('Invalid link')
+        
+        [slug, id] = path[3:].split('/')
+        return { "slug": slug, "id": id }
+
     def latest_topics_no_replies(self):
         response = self.client.latest_topics()        
         topics = topics_with_single_post(response['topic_list']['topics'])

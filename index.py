@@ -15,7 +15,8 @@ print("args=%s" % args)
 cs = CommunitySupport()
 
 if args.topic:
-    print("Not yet implemented")
+    bits = cs.parse_link(args.topic)
+    print(bits)
     sys.exit(0)
 else:
     topics = cs.latest_topics_no_replies()

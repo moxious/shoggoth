@@ -18,7 +18,32 @@ DEFAULT_MODEL = 'gpt-3.5-turbo'
 Core object that wraps OpenAPI API and makes it easy to
 just give a Discourse post, and return a tag set.
 """
-class Shoggoth:    
+class Shoggoth:
+    """POC with Antonio"""
+    WHAT_SHOULD_I_SEARCH_FOR = {
+        "system_messages": [
+            {
+                "role": "system",
+                "content": """
+                    You will read a post formatted in JSON, and then suggest which search
+                    term, which when put into a search engine like google, is most likely
+                    to return similar results.
+
+                    We want to do this so that we can find similar posts that could potentially
+                    contain the solution.  
+
+                    Feel free to add any comments that you have about the post, and how similar
+                    content might be found on other sites.
+
+                    You should respond by saying:
+                    search the web for (your answer) to find similar articles.
+
+                    Include an explanation of why you chose what you chose.
+                """
+            }
+        ]
+    }
+
     TAG_JSON = {
         "system_messages": [
             {

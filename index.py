@@ -25,7 +25,7 @@ else:
 
     shoggy = Shoggoth()
     
-    for topic in [ topics[0] ]:
+    for topic in topics:
         print ("```\n%s\n```\n\n" % json.dumps(topic.get_head_content(), indent=2))
         print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
 

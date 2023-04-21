@@ -89,6 +89,10 @@ class Shoggoth:
 
                     You may assign up to 5 tags.  
 
+                    Topics and questions are sometimes vague, and do not have enough
+                    information to help the poster.  If you believe this is the case, take
+                    note of that in the notes of your response.
+
                     You will respond using markdown, like this:
 
                     ## Recommendations: (title of the post)

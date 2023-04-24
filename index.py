@@ -36,15 +36,15 @@ for topic in topics:
     # Evaluate filters of whether or not we should process this post.
     if not args.replies and topic.has_replies():
         # Skip those with replies.
-        print("Skipping for replies")
+        # print("Skipping for replies")
         continue
 
     if not args.tags and topic.is_tagged():
-        print("Skipping for tags")
+        # print("Skipping for tags")
         continue
 
     processed += 1 
     print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
-    print("\n\n```%s```\n\n" % json.dumps(topic.get_head_content(), indent=2))
+    print("\n\n```\n%s\n```\n\n" % json.dumps(topic.get_head_content(), indent=2))
 
 print("Total processed: %d" % processed)

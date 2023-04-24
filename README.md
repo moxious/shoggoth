@@ -26,19 +26,41 @@ cp .env.template .env
 
 ## Run
 
+`python index.py --help` for information.
+
+### Latest Posts
+
+In the simplest run mode it will check for the latest posts that are untagged with no replies, and process them.
+
 ```
 python index.py
+```
+
+### A specific post
+
+Provide a full link
+
+```
+python index.py --topic https://community.grafana.com/t/trying-to-setup-a-grafana-deployment-in-kubernetes-cluster/86306
+```
+
+### A Search Term
+
+```
+python index.py --search Exception 
 ```
 
 ## Sample Output
 
 ```
-$ python3 index.py 
-https://community.grafana.com/t/merging-results-of-multiple-queries-into-table-use-label-values-as-columns/85986
+## Recommendations: Trying to setup a grafana deployment in kubernetes cluster
 
-{'topic_html_title': 'Merging results of multiple queries into table (Use label values as columns)', 'cooked': '<p>I managed to resolve it myself.</p>\n<p>Starting point<br>\nTable panel with 2 queries that have identical set of labels.  1 label contains values that you want to have as columns (env = dev / qa / …)</p>\n<p>Add transformations</p>\n<p>Merge Transformation : all the actual values are stored as Value <span class="hashtag">#A</span>, <span class="hashtag">#B</span>, …<br>\nAdd field from calculation : Reduce Row … Select the Value#A <span class="hashtag">#B</span> fields and calculate the Total<br>\nGrouping to Matrix : Column = env, Row= <strong>name</strong> Cell Value = Total</p>'}
-
-['Grafana', 'dashboards', 'transformations']
+- URL: https://community.grafana.com/t/trying-to-setup-a-grafana-deployment-in-kubernetes-cluster/86306
+- Tags: kubernetes, deployment, liveness-probe, readiness-probe, container, monitoring
+- Summary: The user is trying to deploy Grafana on a Kubernetes cluster, but is having issues with liveness probe, and readiness probe errors.
+- Friendly: Yes
+- Concern: No
+- Notes: The deployment and service YAML files seem fine as per the official Grafana documentation. Since there are errors in the livenessProbe and readinessProbe section, review the configuration related to these probes, especially the TCP socket's port. It looks like a port issue since the connection is refused on port 3000. Also, ask the
 ```
 
 ## Wait What?  How does this work?

@@ -8,24 +8,43 @@ load_dotenv()
 
 argParser = argparse.ArgumentParser()
 argParser.add_argument("-t", "--topic", help="Discourse topic link")
+argParser.add_argument("-s", "--search", help="Search term")
+argParser.add_argument("-l", "--replies", help="Whether or not to process topics with replies (defaults false)", default=False, action=argparse.BooleanOptionalAction)
+argParser.add_argument("-u", "--tags", help="Whether or not to process topics with tags (defaults false)", default=False, action=argparse.BooleanOptionalAction)
 
 args = argParser.parse_args()
-print("args=%s" % args)
-
+print(args)
 cs = CommunitySupport()
 
+# Run mode is responsible for setting a set of topics in an array
+# [].  The shoggoth will then process the array.
 if args.topic:
-    bits = cs.parse_link(args.topic)
-    print(bits)
-    sys.exit(0)
+    topic = cs.get_topic_for_link(args.topic)
+    # This flag overrides the others
+    args.tags = False
+    args.replies = False
+    topics = [topic]
+elif args.search:
+    topics = cs.search(args.search)    
 else:
-    topics = cs.latest_topics_no_replies()
-    
-    print("Got %d topics" % len(topics))
+    topics = cs.latest_topics()
 
-    shoggy = Shoggoth()
+shoggy = Shoggoth()
     
-    for topic in topics:
-        print ("```\n%s\n```\n\n" % json.dumps(topic.get_head_content(), indent=2))
-        print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
+processed = 0
+for topic in topics:
+    # Evaluate filters of whether or not we should process this post.
+    if not args.replies and topic.has_replies():
+        # Skip those with replies.
+        print("Skipping for replies")
+        continue
 
+    if not args.tags and topic.is_tagged():
+        print("Skipping for tags")
+        continue
+
+    processed += 1 
+    print(shoggy.run(Shoggoth.TAG_JSON, topic.get_head_content()))
+    print("\n\n```%s```\n\n" % json.dumps(topic.get_head_content(), indent=2))
+
+print("Total processed: %d" % processed)

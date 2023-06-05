@@ -2,13 +2,13 @@
 
 ## What is this?
 
-A quick demo showing ChatGPT auto-tagging of posts on discourse.
+A CLI tool for auto-tagging and categorization of community posts on [discourse](https://community.grafana.com/)
 
 This simple demo:
 
 1. Loads the latest post from Discourse
 2. Cuts it down to title/content only
-3. Feeds it into ChatGPT with a **prime directive** to read the post
+3. Feeds it into OpenAI with a **prime directive** to read the post
 and categorize it according to common topics and product lines.
 
 ## Setup

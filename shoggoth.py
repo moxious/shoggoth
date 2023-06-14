@@ -130,6 +130,15 @@ class Shoggoth:
     def __init__(self):
         openai.api_key = os.environ['OPENAI_API_KEY']
 
+    def get_embedding(self, text, model='text-embedding-ada-002'):
+        print("Embeddings on text")
+        print(text)
+        response = openai.Embedding.create(
+            input=text,
+            model=model
+        )
+        return ShoggothReponse(response)
+
     def run(self, command, input, model=DEFAULT_MODEL):
         # Coerce user input to string; OpenAI can't take
         # nested json inputs, but Shoggy can understand

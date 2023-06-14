@@ -25,6 +25,9 @@ class Topic:
             "content": top_post['cooked'],
         }
 
+    def get_fulltext(self):
+        return "%s\n\n%s" % (self.data['title'], self.get_posts()[0]['cooked'])
+
     def __dict__(self):
         return self.data
 

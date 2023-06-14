@@ -15,7 +15,8 @@ and categorize it according to common topics and product lines.
 
 ```
 pip3 install openai 
-pip install pydiscourse
+pip3 install pydiscourse
+pip3 install pandas
 ```
 
 - Set up API keys and customize contents of `.env` (requires paid OpenAI API key & discourse key)
